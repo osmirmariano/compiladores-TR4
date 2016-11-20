@@ -1,13 +1,12 @@
 #include <iostream>
 #include "regex.h"
-#include "Regex"
+#include "AnalisadorLexico.cpp"
 
 using namespace std;
 
 int main(int argc, char const *argv[]){
     int op;
 
-    
     do{
         cout << "---------------------------------------------------" << endl;
         cout << "\t MENU DE OPÇÃO" << endl;
