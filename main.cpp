@@ -42,6 +42,11 @@ int main(int argc, char const *argv[]){
                     cout << "---------------------------------------------------" << endl;
                     token->setNomeToken(tokens);
                     //Chamar Inserir Tokens
+
+                    cout << endl << "  PARA VOLTAR AO MENU PRESSIONE ENTER" << endl;
+                    cin.ignore().get();//Comando para Pausa no terminal
+                    cout << "\e[H\e[2J";//Comando para limpar a tela
+
                     cout << endl;
                     cout << " 1 -- INSERIR MAIS" << endl;
                     cout << " 0 -- ENCERRAR INSERÇÃO" << endl;
@@ -49,11 +54,13 @@ int main(int argc, char const *argv[]){
                     cout << " OPÇÃO: ";
                     cin >> op2;
                     cout << "---------------------------------------------------" << endl;
+                    
                     if(op2 != 1){
                         cout << "OPÇÃO INVÁLIDA!" << endl;
                         op2 = 0;
                     }
                 }while(op2 != 0);
+                
                 break;
 
             case 2:
@@ -65,14 +72,16 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t MOSTRAR" << endl;
                 cout << "---------------------------------------------------" << endl;
+                cout << "\t EXPRESSÕES" << endl;
                 for(int x = 0; x <  token->getTamanhoExpressao(); x++){
-                    cout << " " << token->getExpressoes(x);
+                    cout << " " << token->getExpressoes(x) << endl;
                 }
                 cout << endl;
+                cout << "\t TOKENS" << endl;
                 for(int x = 0; x <  token->getTamanhoToken(); x++){
-                    cout << " " << token->getTokens(x);
+                    cout << " " << token->getTokens(x) << endl;
                 }
-
+                break;
             case 0:
                 cout << "\tAPLICAÇÃO ENCERRADA COM SUCESSO!" << endl << endl;
                 break;
