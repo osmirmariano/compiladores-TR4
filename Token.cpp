@@ -1,40 +1,66 @@
 #include <iostream>
+#include <vector>
 #include "regex.h"
 
 using namespace std;
 
 class Token{
     private:
-    	string nomeToken;
-    	Pattern expressao;
+    	vector<string> nomeToken;
+    	vector<string> expressao;
 
 	public:
 		Token(){
-			void setNomeToken(string nomeToken)
+			void setNomeToken(string nomeTokens);
+			void setExpressao(string expressoes);
 			string getNomeToken();
-			void seExpressao();
 			string getExpressao();
+			int getTamanhoToken();
+			int getTamanhoExpressao();
 		};
 		~Token();
 
-		void setNomeToken(string nomeToken){
-			this.nomeToken = nomeToken;
+		void setNomeToken(string nomeTokens){
+			nomeToken.push_back(nomeTokens);
 		};
 
-		void seExpressao(){
-			this.expressao = expressao;
+		void setExpressao(string expressoes){
+			expressao.push_back(expressoes);
 		};
 
-		string getNomeToken(){
+		vector<string> getNomeToken(){
             return nomeToken;
 		};
 
 
-		string getExpressao(){
+		vector<string> getExpressao(){
 			return expressao;
 		}
 
-		bool verificar(string entrada){
-            match_results m = expressao.matcher(entrada);
+		int getTamanhoToken(){
+			return nomeToken.size();
+		}
+
+		int getTamanhoExpressao(){
+			return expressao.size();
 		};
+
+		string getExpressoes(int indice) {
+			return expressao[indice];
+		};
+
+		string getTokens(int indice) {
+			return nomeToken[indice];
+		};
+		// void adicionarTokens(string token){
+		// 	this->tokens.push_back(tokens);
+		// };
+
+		// void adicionarExpressao(string expressoes){
+		// 	this->expressao.push_back(expressoes);
+		// };
+
+		// bool verificar(string entrada){
+  //           match_results m = expressao.matcher(entrada);
+		// };
 };
