@@ -10,16 +10,5 @@ class AnalisadorLexico{
 	public:
 		AnalisadorLexico();
 		~AnalisadorLexico();
-
-        void AnalisadorLexico(vector<Token> tokens){
-            this.tokens = tokens;
-        };
-
-        void adicionarToken(vector<Token> token){
-            tokens.push_back(token);
-        };
-
-        void adicionarToken(string nome, string reg){
-
-        };
+        
 };
