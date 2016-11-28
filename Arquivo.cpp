@@ -23,6 +23,7 @@ class Arquivo{
 		};
 		~Arquivo();
 
+		/*-----------------FUNÇÃO PARA ABRIR ARQUIVO COM AS EXPRESSÕES----------------------*/
 		void abrindoArquivoExpressao(){
            	int cont = 0;
             ifstream txtFile;
@@ -39,6 +40,7 @@ class Arquivo{
             txtFile.close();
 		}
 
+		/*------------------FUNÇÃO PARA ABRIR ARQUIVO COM OS TOKENS--------------------------*/
 		void abrindoArquivoTokens(){
            	int cont = 0;
             ifstream txtFile;
@@ -55,18 +57,24 @@ class Arquivo{
             txtFile.close();
 		}
 
+		/*------------------FUNÇÃO MOSTRAR AS EXPRESSÕES E TOKENS--------------------------*/
 		void mostrar(){
+			cout << "---------------------------------------------------" << endl;
 			cout << "\t EXPRESSÕES" << endl;
+			cout << "---------------------------------------------------" << endl;
 			for(int x = 0; x <  token.getTamanhoExpressao(); x++){
             	cout << " " << token.getExpressoes(x) << endl;
             }
-            cout << endl;
+            cout << "---------------------------------------------------" << endl;
             cout << "\t TOKENS" << endl;
+            cout << "---------------------------------------------------" << endl;
             for(int x = 0; x <  token.getTamanhoToken(); x++){
             	cout << " " << token.getTokens(x) << endl;
             }
+            cout << "---------------------------------------------------" << endl;
 		}
-
+		
+		/*------------------FUNÇÃO FAZER O TRATAMENTO DA ENTRADA--------------------------*/
 		void tratandoString(string entrada){
 			vector<string> stringDividida;
 			string recebe;
@@ -83,6 +91,7 @@ class Arquivo{
 			verificandoEntrada(stringDividida);
 		};
 
+		/*------------------FUNÇÃO VERIFICAR SE A ENTRADA É VÁLIDA--------------------------*/
 		void verificandoEntrada(vector<string> recebe){
 			vector<string> tokensFinal;
             string dados;
@@ -108,8 +117,11 @@ class Arquivo{
             imprimindoTokens(tokensFinal);
 		}
 
+		
+		/*---------------------FUNÇÃO IMPRIMIR O RESULTADO-----------------------------*/
 		void imprimindoTokens(vector<string> tokensFinal){
-			cout << endl;
+			cout << "\t           SAÍDA:" << endl;
+			cout << "---------------------------------------------------" << endl;
 			for(int x = 0; x < tokensFinal.size(); x++){
 				cout << " <" << tokensFinal[x] << ">";
 			}

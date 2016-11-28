@@ -38,6 +38,7 @@ int main(int argc, char const *argv[]){
                 cout << " ENTRADA: ";
                 cin.ignore();
                 getline (cin, entrada);
+                cout << "---------------------------------------------------" << endl;
                 arquivo->tratandoString(entrada);
                 cout << "---------------------------------------------------" << endl;
                 break;
