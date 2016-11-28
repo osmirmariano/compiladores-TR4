@@ -5,13 +5,13 @@
 using namespace std;
 
 int main(){
-    string input = "float";
+    string input = "abc";
     //string int_num = "^0$|^[1-9][0-9]*$";
 
-    regex pattern("^ *(int|float|char|bool)$");
+    regex pattern("^ [_a-zA-Z]*$");
 
     if(regex_match(input, pattern))
-        cout << "FLOAT\n";
+        cout << "IDT\n";
     else
         cout << "ERRO\n";
 

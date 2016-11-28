@@ -1,7 +1,5 @@
 #include <iostream>
 #include <regex>
-//#include "AnalisadorLexico.cpp"
-#include "Token.cpp"
 #include "Arquivo.cpp"
 
 using namespace std;
@@ -9,7 +7,6 @@ using namespace std;
 int main(int argc, char const *argv[]){
     int op, op2;
     string entrada;
-    Token *token = new Token();
     Arquivo *arquivo = new Arquivo();
 
     do{
