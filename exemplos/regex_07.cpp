@@ -5,15 +5,15 @@
 using namespace std;
 
 int main(){
-    string input = "123";
+    string input = "float";
     //string int_num = "^0$|^[1-9][0-9]*$";
 
-    regex pattern("^ *([0-9]*[0-9])$");
+    regex pattern("^ *(int|float|char|bool)$");
 
     if(regex_match(input, pattern))
-        cout << "matched\n";
+        cout << "FLOAT\n";
     else
-        cout << "not matched\n";
+        cout << "ERRO\n";
 
     return 0;
 }

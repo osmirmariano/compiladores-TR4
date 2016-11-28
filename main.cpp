@@ -18,7 +18,6 @@ int main(int argc, char const *argv[]){
         cout << "---------------------------------------------------" << endl;
         cout << " 1 -- CARREGAR ARQUIVO" << endl;
         cout << " 2 -- ENTRADA CÓDIGO FONTE" << endl;
-        cout << " 3 -- MOSTRAR" << endl;
         cout << " 0 -- SAIR" << endl;
         cout << "---------------------------------------------------" << endl;
         cout << " OPÇÃO: ";
@@ -32,6 +31,7 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 arquivo->abrindoArquivoExpressao();
                 arquivo->abrindoArquivoTokens();
+                arquivo->mostrar();
                 break;
 
             case 2:
@@ -42,15 +42,7 @@ int main(int argc, char const *argv[]){
                 cin.ignore();
                 getline (cin, entrada);
                 arquivo->tratandoString(entrada);
-                //arquivo->verificandoEntrada(entrada);
                 cout << "---------------------------------------------------" << endl;
-                break;
-
-            case 3:
-                cout << "---------------------------------------------------" << endl;
-                cout << "\t MOSTRAR" << endl;
-                cout << "---------------------------------------------------" << endl;
-                arquivo->mostrar();
                 break;
 
             case 0:

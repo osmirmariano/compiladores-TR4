@@ -1,4 +1,3 @@
-IDT
 NUM
 OP1
 OP2
@@ -8,12 +7,6 @@ IF
 ELSE
 DO
 WHILE
-FOR
-{
-}
-;
-OP_REL
 TIPO
-"
-ERRO
-LITERAL
+OP_REL
+FOR

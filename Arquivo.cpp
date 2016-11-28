@@ -17,6 +17,9 @@ class Arquivo{
             void abrindoArquivoExpressao();
             void abrindoArquivoTokens();
             void mostrar();
+            void verificandoEntrada(vector<string> recebe);
+            void tratandoString(string entrada);
+            void imprimindoTokens(vector<string> tokensFinal);
 		};
 		~Arquivo();
 
@@ -74,28 +77,43 @@ class Arquivo{
 					stringDividida.push_back(recebe);
 					recebe.clear();
 				}
-			}	
-			verificandoEntrada(recebe);
+				if(x == entrada.length()-1)
+					stringDividida.push_back(recebe);
+			}
+			verificandoEntrada(stringDividida);
 		};
 
 		void verificandoEntrada(vector<string> recebe){
-			vector<string> tokensFianl;
+			vector<string> tokensFinal;
             string dados;
             int cont = 0;
+            
             for(int y = 0; y < recebe.size(); y++){
             	for(int x = 0; x < token.getTamanhoExpressao(); x++){
 	                dados = token.getExpressoes(x);
 	                regex pattern(dados);
-	                if(regex_match(entrada, pattern)){
-	                	cont++;
-	                    tokensFianl.push_back(token.getTokens(x))
+	                if(regex_match(recebe[y], pattern)){
+	                    tokensFinal.push_back(token.getTokens(x));
 	                    break;
 	                }
+	                else
+	                	cont++;
 	   			}
-            }
+	   			/*if(cont == 0){
+	   				tokensFinal.push_back("ERRO");
+	   			}*/
 
-   			if(cont == 0)
-                cout << "<ERRO>\n";
+                cont = 0;
+            }
+            imprimindoTokens(tokensFinal);
+		}
+
+		void imprimindoTokens(vector<string> tokensFinal){
+			cout << endl;
+			for(int x = 0; x < tokensFinal.size(); x++){
+				cout << " <" << tokensFinal[x] << ">";
+			}
+			cout << endl;
 		}
 };
 #endif // ARQUIVO_H
