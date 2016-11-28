@@ -96,13 +96,13 @@ class Arquivo{
 	                    tokensFinal.push_back(token.getTokens(x));
 	                    break;
 	                }
-	                else
+	                else{
 	                	cont++;
+	                }
 	   			}
-	   			/*if(cont == 0){
+	   			if(cont == token.getTamanhoExpressao()){
 	   				tokensFinal.push_back("ERRO");
-	   			}*/
-
+	   			}
                 cont = 0;
             }
             imprimindoTokens(tokensFinal);
