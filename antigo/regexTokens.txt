@@ -1,0 +1,12 @@
+NUM
+OP1
+OP2
+(
+)
+IF
+ELSE
+DO
+WHILE
+TIPO
+OP_REL
+FOR
