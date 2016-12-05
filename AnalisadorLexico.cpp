@@ -77,6 +77,7 @@ class AnalisadorLexico{
 		void verificandoEntrada(string entrada){
 			int contador = 0, cont = 0;
 			vector<string> tokensFinais;
+			vector<string> tokenErro;
 			string simbolo, palavra, teste, dados, tokenAtual = " ", novaPalavra;
 			for(int x = 0; x < entrada.length(); x++){
 				if(entrada[x] != ' '){
@@ -95,7 +96,6 @@ class AnalisadorLexico{
 							cout << "PALAVRA: " << palavra << endl;
 							cout << "---------------------------------------------------" << endl;
 							cout << "TOKENOFICIAL: " << token.getTokens(y) << endl;
-							cout << "Y: " << y  << endl;
 							if(tokenAtual == " "){
 								tokenAtual = token.getTokens(y);
 								cout << "OI" << endl;
@@ -114,9 +114,6 @@ class AnalisadorLexico{
 											cout << "TOKEN ENCONTRADO" << endl;
 											tokensFinais.push_back(token.getTokens(o));
 											novaPalavra.clear();
-											cout << "X: " << x << endl;
-											cout << "SIMBOLO: " << simbolo << endl;
-											//x--;
 											break;
 										}
 									}
@@ -133,14 +130,37 @@ class AnalisadorLexico{
 						else
 							contador++;
 					}
-					if(contador == token.getTamanhoExpressao())
+					if(contador == token.getTamanhoExpressao()){
+						string recebe;
+						recebe = entrada[x];
 						tokensFinais.push_back("ERRO");
+						tokenErro.push_back(recebe);
+					}
+
 					contador = 0;
 				}
 			}
 			imprimindoTokens(tokensFinais);
+			imprimindoErros(tokenErro);
 		};
 
+		/*---------------------FUNÇÃO IMPRIMIR O RESULTADO-----------------------------*/
+		void imprimindoTokens(vector<string> tokensFinal){
+			cout << "\t           SAÍDA:" << endl;
+			cout << "---------------------------------------------------" << endl;
+			for(int x = 0; x < tokensFinal.size(); x++){
+				cout << " <" << tokensFinal[x] << ">";
+			}
+			cout << endl;
+		};
+
+		void imprimindoErros(vector<string> tokenErro){
+			cout << "\t           ERRO LÉXICO:" << endl;
+			cout << "---------------------------------------------------" << endl;
+			for(int x = 0; x < tokenErro.size(); x++){
+				cout << " " tokenErro[x] << " NÃO FAZ PARTE" << endl;
+			}
+		}
 
 		// void verificandoEntrada(string entrada){
   //           int cont;
@@ -320,14 +340,6 @@ class AnalisadorLexico{
 		// }
 
 
-		/*---------------------FUNÇÃO IMPRIMIR O RESULTADO-----------------------------*/
-		void imprimindoTokens(vector<string> tokensFinal){
-			cout << "\t           SAÍDA:" << endl;
-			cout << "---------------------------------------------------" << endl;
-			for(int x = 0; x < tokensFinal.size(); x++){
-				cout << " <" << tokensFinal[x] << ">";
-			}
-			cout << endl;
-		}
+		
 };
 #endif // ANALISADORLEXICO_H
