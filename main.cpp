@@ -1,13 +1,13 @@
 #include <iostream>
 #include <regex>
-#include "Arquivo.cpp"
+#include "AnalisadorLexico.cpp"
 
 using namespace std;
 
 int main(int argc, char const *argv[]){
     int op, op2;
     string entrada;
-    Arquivo *arquivo = new Arquivo();
+    AnalisadorLexico *lexico = new AnalisadorLexico();
 
     do{
         cout << "---------------------------------------------------" << endl;
@@ -26,9 +26,9 @@ int main(int argc, char const *argv[]){
                 cout << "---------------------------------------------------" << endl;
                 cout << "\t ARQUIVO CARREGADO" << endl;
                 cout << "---------------------------------------------------" << endl;
-                arquivo->abrindoArquivoExpressao();
-                arquivo->abrindoArquivoTokens();
-                arquivo->mostrar();
+                lexico->abrindoArquivoExpressao();
+                lexico->abrindoArquivoTokens();
+                lexico->mostrar();
                 break;
 
             case 2:
@@ -39,7 +39,9 @@ int main(int argc, char const *argv[]){
                 cin.ignore();
                 getline (cin, entrada);
                 cout << "---------------------------------------------------" << endl;
-                arquivo->tratandoString(entrada);
+               /* arquivo->tratandoString(entrada);*/
+                entrada += " ";
+                lexico->verificandoEntrada(entrada);
                 cout << "---------------------------------------------------" << endl;
                 break;
 

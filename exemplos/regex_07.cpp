@@ -5,10 +5,10 @@
 using namespace std;
 
 int main(){
-    string input = "abc";
+    string input = "abc123";
     //string int_num = "^0$|^[1-9][0-9]*$";
 
-    regex pattern("^ [_a-zA-Z]*$");
+    regex pattern("^((?!( *(if|else|do|while|for|int|float|char|bool))))([_a-zA-Z][\w]*)*$");
 
     if(regex_match(input, pattern))
         cout << "IDT\n";

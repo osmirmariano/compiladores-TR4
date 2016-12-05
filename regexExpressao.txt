@@ -1,3 +1,4 @@
+^((?!( *(if|else|do|while|for|int|float|char|bool))))([_a-zA-Z]*)*$
 ^ *([0-9]*[0-9])$
 ^ *([+-])$
 ^ *([/\*])$
@@ -7,6 +8,6 @@
 ^ *(else)$
 ^ *(do)$
 ^ *(while)$
-^ *(int|float|char|bool)$
-^ *(>|<|>=|<=|!=|==)$
 ^ *(for)$
+^ *(>|<|>=|<=|!=|==)$
+^ *(int|float|char|bool)$
