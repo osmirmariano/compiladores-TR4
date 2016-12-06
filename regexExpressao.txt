@@ -1,4 +1,4 @@
-^((?!( *(if|else|do|while|for|int|float|char|bool))))([_a-zA-Z]*)*$
+^((?!( *(if|else|do|while|for|int|float|char|bool)))( *[_a-zA-Z][\\w]*))$
 ^ *([0-9]*[0-9])$
 ^ *([+-])$
 ^ *([/\*])$

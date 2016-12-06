@@ -75,10 +75,11 @@ class AnalisadorLexico{
 		};
 
 		void verificandoEntrada(string entrada){
-			int contador = 0, cont = 0;
+			int contador = 0, cont = 0, tratamento;
 			vector<string> tokensFinais;
 			vector<string> tokenErro;
 			string simbolo, palavra, teste, dados, tokenAtual = " ", novaPalavra;
+			cout << "TA: " << entrada.length() << endl;
 			for(int x = 0; x < entrada.length(); x++){
 				if(entrada[x] != ' '){
 					simbolo = entrada[x];
@@ -98,26 +99,29 @@ class AnalisadorLexico{
 							cout << "TOKENOFICIAL: " << token.getTokens(y) << endl;
 							if(tokenAtual == " "){
 								tokenAtual = token.getTokens(y);
-								cout << "OI" << endl;
+								tokensFinais.push_back(tokenAtual);
 							}
 							else{
 								if(tokenAtual != token.getTokens(y)){
 									for(int z = 0; z < palavra.length()-1; z++)
 										novaPalavra += palavra[z];
-									//teste = token.getExpressoes(y);
 									cout << "---------------------------------------------------" << endl;
-									cout << "NOVAPALVARA: " << novaPalavra << endl;
+									cout << "NOVAPALAVRA: " << novaPalavra << endl;
 									cout << "---------------------------------------------------" << endl;
-									for(int o = 0; o <  token.getTamanhoExpressao(); o++){
+									for(int o = 0; o < token.getTamanhoExpressao(); o++){
 										regex intiger(token.getExpressoes(o));
 										if(regex_match(novaPalavra, intiger)){
 											cout << "TOKEN ENCONTRADO" << endl;
+											cout << "VAI PARA VETOR: " << token.getTokens(o) << endl;
 											tokensFinais.push_back(token.getTokens(o));
-											novaPalavra.clear();
-											break;
+											//x--;
+											o = token.getTamanhoExpressao();
 										}
-									}
+ 									}
+									novaPalavra.clear();
 									palavra.clear();
+									cout << "X: " << x << endl;
+									cout << "X-1: " << x-1 << endl;
 								}
 								else
 									tokenAtual = token.getTokens(y);
@@ -125,27 +129,30 @@ class AnalisadorLexico{
 							cont = 1;
 							cout << "---------------------------------------------------" << endl;
 							cout << "TOKENATUAL: " << tokenAtual << endl;
-							break;
+							y = token.getTamanhoExpressao();
 						}
 						else
 							contador++;
 					}
+					//
 					if(contador == token.getTamanhoExpressao()){
 						string recebe;
 						recebe = entrada[x];
 						tokensFinais.push_back("ERRO");
 						tokenErro.push_back(recebe);
 					}
-
 					contador = 0;
+					//cont = 0;
 				}
 			}
 			imprimindoTokens(tokensFinais);
-			imprimindoErros(tokenErro);
+			if(tokenErro.size() > 0)
+				imprimindoErros(tokenErro);
 		};
 
 		/*---------------------FUNÇÃO IMPRIMIR O RESULTADO-----------------------------*/
 		void imprimindoTokens(vector<string> tokensFinal){
+			cout << "---------------------------------------------------" << endl;
 			cout << "\t           SAÍDA:" << endl;
 			cout << "---------------------------------------------------" << endl;
 			for(int x = 0; x < tokensFinal.size(); x++){
@@ -155,10 +162,11 @@ class AnalisadorLexico{
 		};
 
 		void imprimindoErros(vector<string> tokenErro){
+			cout << "---------------------------------------------------" << endl;
 			cout << "\t           ERRO LÉXICO:" << endl;
 			cout << "---------------------------------------------------" << endl;
 			for(int x = 0; x < tokenErro.size(); x++){
-				cout << " " tokenErro[x] << " NÃO FAZ PARTE" << endl;
+				cout << " " << tokenErro[x] << " NÃO FAZ PARTE" << endl;
 			}
 		}
 
