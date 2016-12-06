@@ -40,7 +40,7 @@ int main(int argc, char const *argv[]){
                 getline (cin, entrada);
                 cout << "---------------------------------------------------" << endl;
                /* arquivo->tratandoString(entrada);*/
-                entrada += " ";
+                /*entrada += " "*/;
                 lexico->verificandoEntrada(entrada);
                 cout << "---------------------------------------------------" << endl;
                 break;
