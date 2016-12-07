@@ -5,7 +5,7 @@
 using namespace std;
 
 int main(){
-    string input = " ";
+    string input = " uu";
     //string int_num = "^0$|^[1-9][0-9]*$";
 
     regex pattern("^((?!( *(if|else|do|while|for|int|float|char|bool)))( *[_a-zA-Z][\\w]*))$");

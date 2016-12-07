@@ -74,39 +74,41 @@ class AnalisadorLexico{
             cout << "---------------------------------------------------" << endl;
 		};
 
-		// void verificandoVamosVer(string entrada){
-		// 	int x, y, contador = 0;
-		// 	string simbolo;
-		// 	vector<string> listaTokens;
-		// 	vector<string> tokensFinais;
-		// 	for(x = 0; x < entrada.length(); x++){
-		// 		if(entrada[x] != ' '){
-		// 			simbolo += entrada[x];
-		// 			for(y = 0; y < token.getTamanhoExpressao(); y++){
-		// 				regex pattern(token.getExpressoes(y));
-		// 				if(regex_match(sombolo, pattern)){
-		// 					listaTokens.push_back(token.getTokens(y));
-		// 				}
-		// 				else
-		// 					contador++;
-		// 				if(listaTokens.size() > 1){
-		// 					if(listaTokens[listaTokens.size()-1] != listaTokens[listaTokens.size()]){
-		// 						tokensFinais.push_back(token.getTokens(y));
-		// 						simbolo.clear();
-
-		// 						x--;
-		// 					}
-		// 				}
-		// 			}
-		// 			if(contador == token.getTamanhoExpressao())
-		// 				tokensFinais.push_back("ERRO");
-		// 		}
-		// 	}
-		// };
+		void verificandoEntrada1(string entrada){
+			int x, y, contador = 0;
+			string simbolo;
+			vector<string> listaTokens;
+			vector<string> tokensFinais;
+			cout << "ENTRADA TAMANHO: " << entrada[entrada.length()-1] << endl;
+			for(x = 0; x < entrada.length(); x++){
+				if(entrada[x] != ' '){
+					simbolo += entrada[x];
+					for(y = 0; y < token.getTamanhoExpressao(); y++){
+						regex pattern(token.getExpressoes(y));
+						if(regex_match(simbolo, pattern)){
+							listaTokens.push_back(token.getTokens(y));
+							y = token.getTamanhoExpressao();
+						}
+						else
+							contador++;
+						if(listaTokens.size() > 1){
+							if(listaTokens[listaTokens.size()-1] != listaTokens[listaTokens.size()]){
+								tokensFinais.push_back(token.getTokens(y));
+								simbolo.clear();
+								//x--;
+							}
+						}
+					}
+					if(contador == token.getTamanhoExpressao())
+						tokensFinais.push_back("ERRO");
+				}
+			}
+			imprimindoTokens(tokensFinais);
+		};
 
 		void verificandoEntrada(string entrada){
 			int x = 0, y, z, o, t=0;
-			int contador = 0, cont = 0, tratamento;
+			int contador = 0, cont = 0, tratamento, logico = 0;
 			vector<string> tokensFinais;
 			vector<string> tokenErro;
 			string simbolo, palavra, teste, dados, tokenAtual = " ", novaPalavra="", tokenOficial;
@@ -126,6 +128,7 @@ class AnalisadorLexico{
                 		cout << "TOKEN: " << token.getExpressoes(y) << endl;
                 		
 						if(regex_match(simbolo, pattern)){
+							cout<<" VÁLIDO"<<endl;
 							palavra +=  simbolo;
 							cout << "---------------------------------------------------" << endl;
 							cout << "PALAVRA: " << palavra << endl;
@@ -164,6 +167,19 @@ class AnalisadorLexico{
 								}
 								else
 									tokenAtual = token.getTokens(y);
+								if(x == entrada.length()-1/* && tokenOficial != ""*/){
+									cout << "PALAVRA 2: " << palavra << endl;
+									for(int a = 0; a < token.getTamanhoExpressao(); a++){
+										regex ultimo(token.getExpressoes(a));
+										if(regex_match(palavra, ultimo)){
+											tokensFinais.push_back(token.getTokens(a));
+											break;
+										}
+
+									}
+									//tokensFinais.push_back(tokenOficial);
+								}
+
 							}
 							
 							cout << "---------------------------------------------------" << endl;
@@ -179,6 +195,15 @@ class AnalisadorLexico{
 						cout << "Entrou" << endl;
 						string recebe;
 						recebe = entrada[x];
+
+						for(int b = 0; b < token.getTamanhoExpressao(); b++){
+							regex value(token.getExpressoes(b));
+							if(regex_match(palavra, value)){
+								tokensFinais.push_back(token.getTokens(b));
+								break;
+							}
+							
+						}
 						novaPalavra.clear();
 						palavra.clear();
 						tokensFinais.push_back("ERRO");
@@ -222,186 +247,7 @@ class AnalisadorLexico{
 			for(int x = 0; x < tokenErro.size(); x++){
 				cout << "     " << tokenErro[x] << " NÃO FAZ PARTE" << endl;
 			}
-		}
-
-		// void verificandoEntrada(string entrada){
-  //           int cont;
-  //           vector<string> tokensFinais;
-  //           string simbolo, dados, tokenAtual, tokenFinal, palavra;
-		// 	for (int x = 0; x < entrada.length(); x++){
-		// 		if(entrada[x] != ' '){
-  //                   simbolo += entrada[x];
-  //                   for (int y = 0; y < token.getTamanhoExpressao(); y++){
-  //                       dados = token.getExpressoes(y);
-  //                       regex pattern(dados);
-  //                       if(regex_match(simbolo, pattern)){
-  //                           if(y == 0){
-  //                               tokenAtual = token.getTokens(y);
-  //                           }
-  //                           else{
-  //                               if(simbolo == " "){
-  //                                   tokensFinais.push_back(token.getTokens(y));
-  //                               }
-  //                               else{
-  //                                   if(tokenAtual != token.getTokens(y)){
-  //                                       tokensFinais.push_back(tokenAtual);
-  //                                       y--;
-  //                                   }
-  //                                   else
-  //                                       tokenAtual = token.getTokens(y);
-  //                               }
-  //                           }
-  //                           cont = 1;
-  //                           break;
-  //                       }
-  //                       else{
-  //                           cont = 0;
-  //                       }
-  //                   }
-  //                   if(cont == 0){
-  //                       simbolo.clear();
-  //                   }
-  //                       //tokensFinais.push_back("ERRO");
-		// 		}
-		// 		else
-  //                   armazena = 0;
-		// 	}
-		// 	imprimindoTokens(tokensFinais);
-		// }
-
-		// void verificandoEntrada(string entrada){
-		// 	vector<string> tokenEncontrado;
-		// 	int cont;
-		// 	string simbolo, dados, palavra;
-		// 	for(int x = 0; x < entrada.length(); x++){
-  //               simbolo += entrada[x];
-  //               cout << "simbolo: " << simbolo << endl;
-  //               if(simbolo !=  " "){
-  //               	for(int y = 0; y < token.getTamanhoExpressao(); y++){
-	 //                    dados = token.getExpressoes(y);
-	 //                    regex pattern(dados);
-	 //                    if(regex_match(simbolo, pattern)){
-	 //                    	palavra = simbolo;
-	 //                    	tokenEncontrado.push_back(token.getTokens(y));
-	 //                       	cont = 1;
-	 //                       	break;
-	 //                    }
-	 //                    else{
-	 //                        cont = 0;
-	 //                    }
-	 //                    if(cont == 1){
-	 //                    	simbolo = palavra;
-	 //                    }
-	 //                    else
-	 //                    	simbolo.clear();
-	 //                }
-	 //                for(int a = 0; a < tokenEncontrado.size(); a++){
-	 //                	cout << "TOKEN: " << tokenEncontrado[a] << endl;
-	 //                }
-  //               }
-		// 	}
-		// };
-
-		// void verificandoEntrada(string entrada){
-		// 	int cont = 0, controle = 0;
-		// 	string palavra, tokenAtual, tokenAnterior, dados, recebe, dado2;
-		// 	vector<string> tokensFinal;
-		// 	for(int y = 0; y < entrada.length(); y++){
-		// 		recebe = entrada[y];
-		// 		//cout << recebe << endl;
-		// 		for(int x = 0; x < token.getTamanhoExpressao(); x++){
-		// 			dados = token.getExpressoes(x);
-		// 			//cout << dados << endl;
-		// 			regex pattern(dados);
-	 //               	if(regex_match(recebe, pattern)){
-		// 				palavra += entrada[y];
-		// 				if(x == 0)
-		// 					tokenAnterior = token.getTokens(x);
-		// 				else
-		// 					tokenAnterior = token.getTokens(x-1);
-		// 				tokenAtual = token.getTokens(x);
-		// 				cont = 1;
-		// 				// cout << palavra << endl;
-		// 				// cout << tokenAnterior << endl;
-		// 				// cout << tokenAtual << endl;
-		// 				break;
-		// 			}
-		// 			else{
-		// 				cout << "AQI" << endl;
-		// 				controle = 1;
-		// 			}
-		// 			dados.clear();
-		// 			recebe.clear();
-		// 		}
-		// 		if(controle == 1 && cont == 0)
-		// 			tokensFinal.push_back("ERRO");
-
-		// 		if(tokenAnterior != tokenAtual){
-		// 			y--;
-		// 			string verifica;
-		// 			for(int x = 0; x < token.getTamanhoExpressao(); x++){
-		// 				verifica = token.getTokens(x);
-		// 				regex intiger(verifica);
-		// 				if(regex_match(palavra, intiger)){
-		// 					tokensFinal.push_back(token.getTokens(x));
-		// 					//cout << "OI" << endl;
-		// 				}
-		// 			}
-		// 			palavra.clear();
-		// 			tokenAtual.clear();
-		// 			tokenAnterior.clear();
-		// 			cont = 0;
-		// 			controle = 0;
-		// 		}
-		// 		recebe.clear();
-		// 	}
-		// 	imprimindoTokens(tokensFinal);
-		// };
-
-		// /*------------------FUNÇÃO FAZER O TRATAMENTO DA ENTRADA--------------------------*/
-		// void tratandoString(string entrada){
-		// 	vector<string> stringDividida;
-		// 	string recebe;
-		// 	for(int x = 0; x < entrada.length(); x++){
-		// 		if(entrada[x] != ' ')
-		// 			recebe += entrada[x];
-		// 		if(entrada[x] == ' '){
-		// 			stringDividida.push_back(recebe);
-		// 			recebe.clear();
-		// 		}
-		// 		if(x == entrada.length()-1)
-		// 			stringDividida.push_back(recebe);
-		// 	}
-		// 	verificandoEntrada(stringDividida);
-		// };
-
-		// /*------------------FUNÇÃO VERIFICAR SE A ENTRADA É VÁLIDA--------------------------*/
-		// void verificandoEntrada(vector<string> recebe){
-		// 	vector<string> tokensFinal;
-  //           string dados;
-  //           int cont = 0;
-
-  //           for(int y = 0; y < recebe.size(); y++){
-  //           	for(int x = 0; x < token.getTamanhoExpressao(); x++){
-	 //                dados = token.getExpressoes(x);
-	 //                regex pattern(dados);
-	 //                if(regex_match(recebe[y], pattern)){
-	 //                    tokensFinal.push_back(token.getTokens(x));
-	 //                    break;
-	 //                }
-	 //                else{
-	 //                	cont++;
-	 //                }
-	 //   			}
-	 //   			if(cont == token.getTamanhoExpressao()){
-	 //   				tokensFinal.push_back("ERRO");
-	 //   			}
-  //               cont = 0;
-  //           }
-  //           imprimindoTokens(tokensFinal);
-		// }
-
-
+		};
 		
 };
 #endif // ANALISADORLEXICO_H

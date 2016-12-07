@@ -115,7 +115,7 @@ class Arquivo{
 		};
 
 		/*------------------FUNÇÃO VERIFICAR SE A ENTRADA É VÁLIDA--------------------------*/
-		void verificandoEntrada1(vector<string> recebe){
+		void verificandoEntrada(vector<string> recebe){
 			vector<string> tokensFinal;
             string dados;
             int cont = 0;
