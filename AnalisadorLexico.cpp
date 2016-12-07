@@ -74,12 +74,13 @@ class AnalisadorLexico{
             cout << "---------------------------------------------------" << endl;
 		};
 
-		void verificandoEntrada1(string entrada){
+		void verificandoEntrada333(string entrada){
 			int x, y, contador = 0;
 			string simbolo;
 			vector<string> listaTokens;
 			vector<string> tokensFinais;
 			cout << "ENTRADA TAMANHO: " << entrada[entrada.length()-1] << endl;
+
 			for(x = 0; x < entrada.length(); x++){
 				if(entrada[x] != ' '){
 					simbolo += entrada[x];
@@ -106,128 +107,133 @@ class AnalisadorLexico{
 			imprimindoTokens(tokensFinais);
 		};
 
+
+
+		bool regexVerifica(string dados, string simbolo){
+			regex pattern(dados);
+			if(regex_match(simbolo, pattern)){
+				return true;
+			}
+			else
+				return false;
+		};
+
 		void verificandoEntrada(string entrada){
-			int x = 0, y, z, o, t=0;
+			int x = 0, y, z, o;
 			int contador = 0, cont = 0, tratamento, logico = 0;
 			vector<string> tokensFinais;
 			vector<string> tokenErro;
-			string simbolo, palavra, teste, dados, tokenAtual = " ", novaPalavra="", tokenOficial;
-			cout << "TAMANHO: "  << entrada.length() << endl;
-			t = entrada.length();
+			string simbolo, palavra, teste, dados, tokenAtual = " ", novaPalavra="", tokenOficial, word;
+
 			for(x = 0; x < entrada.length(); x++){
-			//while(x != entrada.length()){
-				//if(entrada[x] != ' '){
+				if(entrada[x] != ' '){
 					simbolo = entrada[x];
 					cout << "---------------------------------------------------" << endl;
 					cout << "SIMBOLO: " << simbolo << endl;
 					for(y = 0; y < token.getTamanhoExpressao(); y++){
-						cout << "FOR1: " << x << endl;
-						dados = token.getExpressoes(y);
-						regex pattern(dados);
-						cout << "---------------------------------------------------" << endl;
-                		cout << "TOKEN: " << token.getExpressoes(y) << endl;
-                		
-						if(regex_match(simbolo, pattern)){
-							cout<<" VÁLIDO"<<endl;
+						if(regexVerifica(token.getExpressoes(y), simbolo) == true){//Verificar com regex
 							palavra +=  simbolo;
-							cout << "---------------------------------------------------" << endl;
 							cout << "PALAVRA: " << palavra << endl;
 							cout << "---------------------------------------------------" << endl;
-							cout << "TOKENOFICIAL: " << token.getTokens(y) << endl;
+							cout << "TOKENATUAL: " << token.getTokens(y) << endl;
 							tokenOficial = token.getTokens(y);
-                            cout << "ENTRADA TAMANHO: " << entrada[entrada.length()-1] << endl;
-                            
+                            word += palavra;
                             if(tokenAtual == " "){;
 								tokenAtual = token.getTokens(y);
-								if(x == entrada.length()-1)
+								if(x == entrada.length()-1){
+									cout << "VAI INSERIR NO VETOR: " << tokenAtual << endl; 
 									tokensFinais.push_back(tokenAtual);
+								}
 							}
 
 							else{
+
 								if(tokenAtual != token.getTokens(y)){
 									for(z = 0; z < palavra.length()-1; z++)
 										novaPalavra += palavra[z];
+
 									cout << "---------------------------------------------------" << endl;
 									cout << "NOVAPALAVRA: " << novaPalavra << endl;
 									cout << "---------------------------------------------------" << endl;
 									for(o = 0; o < token.getTamanhoExpressao(); o++){
-										cout << "FOR2: " << x << endl;
-										regex intiger(token.getExpressoes(o));
-										if(regex_match(novaPalavra, intiger)){
-											cout << "TOKEN ENCONTRADO" << endl;
-											cout << "VAI PARA VETOR: " << token.getTokens(o) << endl;
+										if(regexVerifica(token.getExpressoes(o), novaPalavra) == true){
+											cout << "ENCONTRADO VAI PARA TOKENFINAL: " << token.getTokens(o) << endl;
 											tokensFinais.push_back(token.getTokens(o));
 											x--;
 											o = token.getTamanhoExpressao();
 										}
  									}
+
 									novaPalavra.clear();
 									palavra.clear();
+									tokenAtual = " ";
 									cont = 1;
 								}
 								else
 									tokenAtual = token.getTokens(y);
 								if(x == entrada.length()-1/* && tokenOficial != ""*/){
-									cout << "PALAVRA 2: " << palavra << endl;
 									for(int a = 0; a < token.getTamanhoExpressao(); a++){
-										regex ultimo(token.getExpressoes(a));
-										if(regex_match(palavra, ultimo)){
+										if(regexVerifica(token.getExpressoes(a), palavra) == true){
+											cout << "2 VAI INSERIR NO VETOR: " << token.getTokens(a) << endl; 
 											tokensFinais.push_back(token.getTokens(a));
 											break;
 										}
-
 									}
-									//tokensFinais.push_back(tokenOficial);
 								}
-
 							}
-							
+
 							cout << "---------------------------------------------------" << endl;
-							cout << "TOKENATUAL: " << tokenAtual << endl;
+							cout << "TOKENANTERIOR: " << tokenAtual << endl;
 							y = token.getTamanhoExpressao();
 						}
 						else
 							contador++;
-					//}
-					cout << "TOKENOFICIAL: " << tokenOficial << endl;
+					}
+					cout << "TOKENATUAL: " << tokenOficial << endl;
 					cout << "CONTADOR: " << contador << endl;
+					string testes;
 					if(contador == token.getTamanhoExpressao()){
 						cout << "Entrou" << endl;
 						string recebe;
 						recebe = entrada[x];
-
-						for(int b = 0; b < token.getTamanhoExpressao(); b++){
-							regex value(token.getExpressoes(b));
-							if(regex_match(palavra, value)){
-								tokensFinais.push_back(token.getTokens(b));
-								break;
+						testes += simbolo[x];
+						//É aqui que está acontecendo o problema de aparecer IDT
+						//if(palavra == " "){
+							for(int b = 0; b < token.getTamanhoExpressao(); b++){
+								if(regexVerifica(token.getExpressoes(b), palavra)){
+									cout << "3 VAI INSERIR NO VETOR: " << token.getTokens(b) << endl; 
+									tokensFinais.push_back(token.getTokens(b));
+								}
 							}
-							
-						}
+						//}
+
 						novaPalavra.clear();
 						palavra.clear();
+
 						tokensFinais.push_back("ERRO");
 						tokenErro.push_back(recebe);
 					}
-					
-					//cont = 0;
+				}
+				else{
+					//É aqui que está acontecendo o problema de aparecer IDT
+					//if(palavra != " "){
+						for(int c = 0; c < token.getTamanhoExpressao(); c++){
+							if(regexVerifica(token.getExpressoes(c), palavra)){
+								cout << "4 VAI INSERIR NO VETOR: " << token.getTokens(c) << endl; 
+								tokensFinais.push_back(token.getTokens(c));
+							}
+						}
+					//}
+					palavra.clear();
+
 				}
 				contador = 0;
-				//x++;
-				int a = x;
-				cout << "1X: " << x << endl;
-				cout << "2X: " << a-1 << endl;
-				cout << "CONT: " << cont << endl;
-				// if(cont == 1){
-				// 	x = a-1;
-				// }
-				/*if(x = entrada.length())
-					tokensFinais.push_back(tokenOficial);*/
 			}
 			imprimindoTokens(tokensFinais);
 			if(tokenErro.size() > 0)
 				imprimindoErros(tokenErro);
 		};
+
 
 		/*---------------------FUNÇÃO IMPRIMIR O RESULTADO-----------------------------*/
 		void imprimindoTokens(vector<string> tokensFinal){
@@ -248,6 +254,6 @@ class AnalisadorLexico{
 				cout << "     " << tokenErro[x] << " NÃO FAZ PARTE" << endl;
 			}
 		};
-		
+
 };
 #endif // ANALISADORLEXICO_H
