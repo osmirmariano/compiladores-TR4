@@ -216,14 +216,14 @@ class AnalisadorLexico{
 				}
 				else{
 					//É aqui que está acontecendo o problema de aparecer IDT
-					//if(palavra != " "){
+					if(palavra != " "){
 						for(int c = 0; c < token.getTamanhoExpressao(); c++){
 							if(regexVerifica(token.getExpressoes(c), palavra)){
 								cout << "4 VAI INSERIR NO VETOR: " << token.getTokens(c) << endl; 
 								tokensFinais.push_back(token.getTokens(c));
 							}
 						}
-					//}
+					}
 					palavra.clear();
 
 				}
