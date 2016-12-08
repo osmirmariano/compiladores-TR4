@@ -198,33 +198,37 @@ class AnalisadorLexico{
 						recebe = entrada[x];
 						testes += simbolo[x];
 						//É aqui que está acontecendo o problema de aparecer IDT
-						//if(palavra == " "){
+						if(palavra == " "){
 							for(int b = 0; b < token.getTamanhoExpressao(); b++){
 								if(regexVerifica(token.getExpressoes(b), palavra)){
 									cout << "3 VAI INSERIR NO VETOR: " << token.getTokens(b) << endl; 
 									tokensFinais.push_back(token.getTokens(b));
 								}
 							}
-						//}
-
+						}
+						else
+							tokensFinais.push_back(tokenAtual);
 						novaPalavra.clear();
 						palavra.clear();
-
+						tokenAtual = " ";
+						tokenOficial.clear();
 						tokensFinais.push_back("ERRO");
 						tokenErro.push_back(recebe);
 					}
 				}
 				else{
 					//É aqui que está acontecendo o problema de aparecer IDT
-					if(palavra != " "){
+					//if(palavra != " "){
 						for(int c = 0; c < token.getTamanhoExpressao(); c++){
 							if(regexVerifica(token.getExpressoes(c), palavra)){
 								cout << "4 VAI INSERIR NO VETOR: " << token.getTokens(c) << endl; 
 								tokensFinais.push_back(token.getTokens(c));
 							}
 						}
-					}
+					//}
 					palavra.clear();
+					tokenAtual = " ";
+					tokenOficial.clear();
 
 				}
 				contador = 0;
@@ -237,13 +241,28 @@ class AnalisadorLexico{
 
 		/*---------------------FUNÇÃO IMPRIMIR O RESULTADO-----------------------------*/
 		void imprimindoTokens(vector<string> tokensFinal){
+			vector<string> novoTokenFinal;
+			novoTokenFinal = teste(tokensFinal);
 			cout << "---------------------------------------------------" << endl;
 			cout << "\t           SAÍDA:" << endl;
 			cout << "---------------------------------------------------" << endl;
-			for(int x = 0; x < tokensFinal.size(); x++){
-				cout << " <" << tokensFinal[x] << ">";
+			for(int x = 0; x < novoTokenFinal.size(); x++){
+				cout << " <" << novoTokenFinal[x] << ">";
 			}
 			cout << endl;
+		};
+
+		vector<string> teste(vector<string> tokensFinal){
+			vector<string> novoTokenFinal;
+			string recebeDados;
+
+			for(int x = 0; x < tokensFinal.size(); x++){
+				if(tokensFinal[x] != " "){
+					recebeDados = tokensFinal[x];
+					novoTokenFinal.push_back(recebeDados);
+				}
+			}
+			return novoTokenFinal;
 		};
 
 		void imprimindoErros(vector<string> tokenErro){
