@@ -74,39 +74,6 @@ class AnalisadorLexico{
             cout << "---------------------------------------------------" << endl;
 		};
 
-		void verificandoEntrada333(string entrada){
-			int x, y, contador = 0;
-			string simbolo;
-			vector<string> listaTokens;
-			vector<string> tokensFinais;
-			cout << "ENTRADA TAMANHO: " << entrada[entrada.length()-1] << endl;
-
-			for(x = 0; x < entrada.length(); x++){
-				if(entrada[x] != ' '){
-					simbolo += entrada[x];
-					for(y = 0; y < token.getTamanhoExpressao(); y++){
-						regex pattern(token.getExpressoes(y));
-						if(regex_match(simbolo, pattern)){
-							listaTokens.push_back(token.getTokens(y));
-							y = token.getTamanhoExpressao();
-						}
-						else
-							contador++;
-						if(listaTokens.size() > 1){
-							if(listaTokens[listaTokens.size()-1] != listaTokens[listaTokens.size()]){
-								tokensFinais.push_back(token.getTokens(y));
-								simbolo.clear();
-								//x--;
-							}
-						}
-					}
-					if(contador == token.getTamanhoExpressao())
-						tokensFinais.push_back("ERRO");
-				}
-			}
-			imprimindoTokens(tokensFinais);
-		};
-
 
 
 		bool regexVerifica(string dados, string simbolo){
