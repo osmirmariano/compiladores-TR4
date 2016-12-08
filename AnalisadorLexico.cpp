@@ -90,7 +90,7 @@ class AnalisadorLexico{
 			int contador = 0, cont = 0, tratamento, logico = 0;
 			vector<string> tokensFinais;
 			vector<string> tokenErro;
-			string simbolo, palavra, teste, dados, tokenAtual = " ", novaPalavra="", tokenOficial, word;
+			string simbolo, palavra, teste, dados, tokenAtual = " ", novaPalavra="", tokenOficial, word, algo;
 
 			for(x = 0; x < entrada.length(); x++){
 				if(entrada[x] != ' '){
@@ -159,13 +159,13 @@ class AnalisadorLexico{
 					cout << "TOKENATUAL: " << tokenOficial << endl;
 					cout << "CONTADOR: " << contador << endl;
 					string testes;
-					if(contador == token.getTamanhoExpressao()){
+					/*if(contador == token.getTamanhoExpressao()){
 						cout << "Entrou" << endl;
 						string recebe;
 						recebe = entrada[x];
 						testes += simbolo[x];
-						//É aqui que está acontecendo o problema de aparecer IDT
-						if(palavra == " "){
+						//É aqui que está acontecendo o problema de aparecer IDTz
+						if(palavra != " "){
 							for(int b = 0; b < token.getTamanhoExpressao(); b++){
 								if(regexVerifica(token.getExpressoes(b), palavra)){
 									cout << "3 VAI INSERIR NO VETOR: " << token.getTokens(b) << endl; 
@@ -181,21 +181,72 @@ class AnalisadorLexico{
 						tokenOficial.clear();
 						tokensFinais.push_back("ERRO");
 						tokenErro.push_back(recebe);
+					}*/
+					if(contador == token.getTamanhoExpressao()){
+						cout << "Entrou" << endl;
+						string recebe;
+						recebe = entrada[x];
+						algo += entrada[x];
+						int ccont = 0, retira=0, z=0;
+						if(algo.length() == 2){
+							cout << "verificar " << endl;
+							for(int i = 0; i < token.getTamanhoExpressao(); i++){
+								if(regexVerifica(token.getExpressoes(i), algo)) {
+									cout << "EXPRE: " << token.getExpressoes(i) << endl;
+									cout << "to: " << token.getTokens(i) << endl;
+									
+									// retira = tokensFinais.size();
+									// cout << "retira 1: " << retira << endl;
+									// //del(tokensFinais[retira]);
+									// //tokensFinais[retira] = "";
+									// retira = tokensFinais.size();
+									// cout << "retira 2: " << retira << endl;
+
+									tokensFinais.push_back(token.getTokens(i));
+									algo.clear();
+								}
+								else
+									ccont++;
+							}
+							if(ccont == token.getTamanhoExpressao())
+								tokensFinais.push_back("ERRO");
+							
+						}
+						else{
+							if(palavra == " "){
+								for(int b = 0; b < token.getTamanhoExpressao(); b++){
+									if(regexVerifica(token.getExpressoes(b), palavra)){
+										cout << "3 VAI INSERIR NO VETOR: " << token.getTokens(b) << endl; 
+										tokensFinais.push_back(token.getTokens(b));
+									}
+								}
+							}else{
+								tokensFinais.push_back(tokenAtual);
+
+							}
+							novaPalavra.clear();
+							palavra.clear();
+							tokenAtual = " ";
+							tokenOficial.clear();
+							tokensFinais.push_back("ERRO");
+							tokenErro.push_back(recebe);		
+						}
 					}
 				}
 				else{
 					//É aqui que está acontecendo o problema de aparecer IDT
-					//if(palavra != " "){
+					cout << "PALA: " << palavra.length() << endl;
+					if(palavra.length() != 0){
 						for(int c = 0; c < token.getTamanhoExpressao(); c++){
 							if(regexVerifica(token.getExpressoes(c), palavra)){
 								cout << "4 VAI INSERIR NO VETOR: " << token.getTokens(c) << endl; 
 								tokensFinais.push_back(token.getTokens(c));
 							}
 						}
-					//}
+					}
 					palavra.clear();
 					tokenAtual = " ";
-					tokenOficial.clear();
+					tokenOficial = " ";
 
 				}
 				contador = 0;
@@ -237,7 +288,7 @@ class AnalisadorLexico{
 			cout << "\t           ERRO LÉXICO:" << endl;
 			cout << "---------------------------------------------------" << endl;
 			for(int x = 0; x < tokenErro.size(); x++){
-				cout << "     " << tokenErro[x] << " NÃO FAZ PARTE" << endl;
+				cout << " ERRO LÉXICO = " << tokenErro[x] << endl;
 			}
 		};
 
