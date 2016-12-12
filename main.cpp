@@ -39,8 +39,6 @@ int main(int argc, char const *argv[]){
                 cin.ignore();
                 getline (cin, entrada);
                 cout << "---------------------------------------------------" << endl;
-               /* arquivo->tratandoString(entrada);*/
-                /*entrada += " ";*/
                 lexico->verificandoEntrada(entrada);
                 cout << "---------------------------------------------------" << endl;
                 break;

@@ -19,6 +19,7 @@ class AnalisadorLexico{
             void verificandoEntrada(vector<string> recebe);
             void tratandoString(string entrada);
             void imprimindoTokens(vector<string> tokensFinal);
+            bool regexVerifica(string dados, string simbolo);
 		};
 		~AnalisadorLexico();
 
