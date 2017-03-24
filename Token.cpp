@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-
+//classe
 class Token{
     private:
     	vector<string> nomeToken;
