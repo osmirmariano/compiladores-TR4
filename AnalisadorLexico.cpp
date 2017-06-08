@@ -90,15 +90,25 @@ class AnalisadorLexico{
 			vector<string> tokensFinais;
 			vector<string> tokenErro;
 			string simbolo, palavra, tokenAtual = " ", novaPalavra = "", tokenOficial, algo, recebe;
-
+			//Cria um for para percorrer cada elemento da entrada que o usuário informar
 			for(x = 0; x < entrada.length(); x++){
+				//Essa condição do if é para verificar se o elemento na posição x é diferente de espaço, porque se for 
+				//espaço eu vou desconsidera
 				if(entrada[x] != ' '){
+					//Crei uma variável do tipo string para receber o elemento da entrada na posição X
 					simbolo = entrada[x];
+					//Esse for é para percorrer todos os elementos do vetor expressão, que está armazenando as 
+					//expressões carregadas pelo o arquivo
 					for(y = 0; y < token.getTamanhoExpressao(); y++){
+						//Nesse if verifico que para cada expressão, passando o simbolo se o simbolo pertence
+						//A alguma expressão
 						if(regexVerifica(token.getExpressoes(y), simbolo) == true){//Verificar com regex
+							//Criei uma variável para armazenar cada elemento da entrada
 							palavra +=  simbolo;
+							//Esse tpken oficial ele recebe o token correspondente a sua expressão regular
 							tokenOficial = token.getTokens(y);
-                            if(tokenAtual == " "){;
+							//Essa condição entra somente no primeiro caso e quando encontro um token
+                            				if(tokenAtual == " "){;
 								tokenAtual = token.getTokens(y);
 								if(x == entrada.length()-1){
 									tokensFinais.push_back(tokenAtual);
@@ -106,18 +116,28 @@ class AnalisadorLexico{
 							}
 							else{
 								//Verificando se o token atual é diferente do anterior
+								//Pq se for encontrei um token. Pq pode ter caso de ter uma 
+								//sequência de mesmo tokens ai eu tenho que mostrar somente um token.
+								//Exemplo: abc os tokens dele é IDT IDT IDT, só que mostro somente IDT (um)
 								if(tokenAtual != token.getTokens(y)){
 									for(z = 0; z < palavra.length()-1; z++)
 										novaPalavra += palavra[z];
-
+									//Aqui tenho que passar todos os conjuntos dos simbolos para verificar 
+									//se esse conjunto existe alguma expressão regular para ele.
 									for(o = 0; o < token.getTamanhoExpressao(); o++){
 										if(regexVerifica(token.getExpressoes(o), novaPalavra) == true){
 											tokensFinais.push_back(token.getTokens(o));
+											//Eu decremento o x, pq tenho que voltar uma casa para 
+											//verificar o item anterior, tipo a+. no percurso
+											//a percorro depois + ai identifico que é diferente, porém 
+											//Ai encontro que a é IDT, mas ai preciso voltar para verificar
+											//O + se não voltar uma casa ele já iria para o próximo e não o +
 											x--;
+											//Para encerrar o laço, evitar processamento desnecessário
 											o = token.getTamanhoExpressao();
 										}
  									}
-
+									//Limpo tudo, depois que encontrei
 									novaPalavra.clear();
 									palavra.clear();
 									tokenAtual = " ";
@@ -138,6 +158,8 @@ class AnalisadorLexico{
 						else
 							contador++;
 					}
+					//Esse if é para verificação de ERRO, onde caso o contador seja igual ao total geral
+					//entende que não existe nenhum token válido
 					if(contador == token.getTamanhoExpressao()){
 						recebe = entrada[x];
 						algo += entrada[x];
@@ -173,7 +195,7 @@ class AnalisadorLexico{
 					}
 				}
 				else{
-					//É aqui que está acontecendo o problema de aparecer IDT
+					//Caso do final da expressão
 					if(palavra.length() != 0){
 						for(int c = 0; c < token.getTamanhoExpressao(); c++){
 							if(regexVerifica(token.getExpressoes(c), palavra)){
